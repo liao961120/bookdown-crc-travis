@@ -20,10 +20,9 @@ cache:
   packages: yes
 
 
-### Where you check package
-### If commands here throw errors, travis build will fail
+# Travis build fails if commands in `script` throw errors
 script:
-  - echo "Hi"  # This let me skip the default R CMD check
+  - echo "Hi"
   - R -e 'tinytex::install_tinytex()'
 after_success:
   - R -e 'options(tinytex.verbose = TRUE); bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
