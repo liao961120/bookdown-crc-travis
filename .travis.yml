@@ -6,13 +6,13 @@ branches:
     - master
 
 
-latex: true
+latex: false
 pandoc_version: 2.3.1
 before_install:
   - sudo apt-get update
-  - tlmgr install index unicode-math filehook lm-math newunicodechar natbib
 r_packages:
   - bookdown
+  - tinytex
   - ggplot2
 r_github_packages:
   - r-lib/pkgdown
@@ -24,6 +24,7 @@ cache:
 ### If commands here throw errors, travis build will fail
 script:
   - echo "Hi"  # This let me skip the default R CMD check
+  - R -e 'tinytex::install_tinytex()'
 after_success:
   - R -e 'options(tinytex.verbose = TRUE); bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
   - R -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")'
