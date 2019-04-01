@@ -1,0 +1,40 @@
+language: r
+dist: trusty
+sudo: true
+branches:
+  only:
+    - master
+
+
+latex: true
+pandoc_version: 2.3.1
+before_install:
+  - sudo apt-get update
+  - tlmgr install index unicode-math filehook lm-math newunicodechar natbib
+r_packages:
+  - bookdown
+  - ggplot2
+r_github_packages:
+  - r-lib/pkgdown
+cache:
+  packages: yes
+
+
+#before_script:
+### Where you check package                                ###
+### If commands here throw errors, travis build will fail  ###
+script:
+  - echo "Hi"  # This let me override the default R CMD check
+#after_success:
+#before_deploy:
+
+
+# deploy `docs/` on branch:master to branch:gh-pages
+deploy:
+  - provider: pages     # Deploy to GitHub
+    github-token: $GH_TOKEN  # personal access token
+    skip-cleanup: true  # true, to keep the build results
+    keep-history: false  # keep commit history on deployed branch?
+    local-dir: docs  # dir to deploy after build
+    on:
+      branch: master  # Usaually set to the default branch of the repo
