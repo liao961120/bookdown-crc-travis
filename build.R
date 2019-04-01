@@ -1,4 +1,5 @@
-bookdown::render_book("index.Rmd")
+bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")
+bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")
 
 if (dir.exists('docs')) unlink('docs', recursive = TRUE)
 dir.create('docs')

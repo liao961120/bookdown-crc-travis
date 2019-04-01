@@ -20,15 +20,16 @@ cache:
   packages: yes
 
 
-#before_script:
 ### Where you check package
 ### If commands here throw errors, travis build will fail
 script:
   - echo "Hi"  # This let me skip the default R CMD check
 after_success:
-  - R -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
+  - R -e 'options(tinytex.verbose = TRUE); bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
   - R -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")'
-#before_deploy:
+  - if [[ -d docs ]]; then rm -r docs; fi
+  - mkdir docs
+  - cp -r _book/* docs
 
 
 # deploy `docs/` on branch:master to branch:gh-pages
