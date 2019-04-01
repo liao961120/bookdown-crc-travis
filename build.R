@@ -1,3 +1,5 @@
+tinytex::install_tinytex()
+
 bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")
 bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")
 
